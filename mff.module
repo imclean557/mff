@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Contains mff.module.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function mff_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the dink module.
+    case 'help.page.mff':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Display formatters for file media entities') . '</p>';
+      return $output;
+
+    default:
+  }
+}
