@@ -1,0 +1,7 @@
+field.formatter.settings.mff_name_link_formatter:
+  type: mapping
+  label: 'Name Link formatter open in a new window'
+  mapping:
+    open_in_new_window:
+      type: boolean
+      label: 'Open in a new wWindow'

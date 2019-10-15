@@ -2,10 +2,9 @@
 
 namespace Drupal\mff\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Plugin\Field\FieldFormatter\FileFormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
-
 
 /**
  * Plugin implementation of the 'Name field link text' formatter.
@@ -18,17 +17,20 @@ use Drupal\Core\Field\FieldItemListInterface;
  *   }
  * )
  */
-class MffNameLinkFormatter extends FileFormatterBase  {
-  
- /**
+class MffNameLinkFormatter extends FileFormatterBase {
+
+  /**
    * {@inheritdoc}
    */
   public function settingsSummary() {
     $summary = [];
-    $summary[] = $this->t('Uses the media Name field as the link text.');
+    $summary[] = $this->t('Use the media Name as the link text.');
+    if ($this->getSetting('open_in_new_window')) {
+      $summary[] = $this->t('Open in a new window.');
+    }
     return $summary;
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -40,10 +42,16 @@ class MffNameLinkFormatter extends FileFormatterBase  {
 
       $field_parent = $item->getEntity();
 
+      $options = [];
+      if ($this->getSetting('open_in_new_window')) {
+        $options['attributes'] = ['target' => '_blank'];
+      }
+
       $elements[$delta] = [
         '#theme' => 'file_link',
         '#file' => $file,
         '#description' => $field_parent->get('name')->getString(),
+        '#link_options' => $options,
         '#cache' => [
           'tags' => $file->getCacheTags(),
         ],
@@ -59,7 +67,28 @@ class MffNameLinkFormatter extends FileFormatterBase  {
     }
 
     return $elements;
- 
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultSettings() {
+    return [
+      'open_in_new_window' => FALSE,
+    ] + parent::defaultSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsForm(array $form, FormStateInterface $form_state) {
+    $form['open_in_new_window'] = [
+      '#title' => $this->t('Open in a new window'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->getSetting('open_in_new_window'),
+    ];
+
+    return $form;
   }
 
 }
