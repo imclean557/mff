@@ -19,7 +19,7 @@ use Drupal\file\Plugin\Field\FieldFormatter\DescriptionAwareFileFormatterBase;
  */
 class MffDescriptionFormatter extends DescriptionAwareFileFormatterBase {
 
-    /**
+  /**
    * {@inheritdoc}
    */
   public static function defaultSettings() {
@@ -27,8 +27,8 @@ class MffDescriptionFormatter extends DescriptionAwareFileFormatterBase {
     $settings['use_description_as_link_text'] = FALSE;
     return $settings;
   }
-  
- /**
+
+  /**
    * {@inheritdoc}
    */
   public function settingsSummary() {
@@ -54,7 +54,7 @@ class MffDescriptionFormatter extends DescriptionAwareFileFormatterBase {
     ];
     return $form;
   }
-  
+
   /**
    * {@inheritdoc}
    */
