@@ -50,7 +50,7 @@ class MffNameLinkFormatter extends FileFormatterBase {
       $elements[$delta] = [
         '#theme' => 'file_link',
         '#file' => $file,
-        '#description' => $field_parent->get('name')->getString(),
+        '#description' => $field_parent->label(),
         '#link_options' => $options,
         '#cache' => [
           'tags' => $file->getCacheTags(),
